@@ -2,12 +2,12 @@
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private CharacterHealth _characterHealth;
+    [SerializeField] private Health _characterHealth;
     [SerializeField] private int _damageValue;
 
     private void Damage()
     {
-        _characterHealth.TryGetDamage(_damageValue);
+        _characterHealth.TakeDamage(_damageValue);
     }
 
     private void Update()
