@@ -5,6 +5,8 @@ public class CharacterHealth : MonoBehaviour
 {
     [SerializeField] private int _minValue;
     [SerializeField] private int _maxValue;
+    [Space]
+    [SerializeField] private int _healValue;
 
     public int Value { get; private set; }
 
@@ -13,6 +15,12 @@ public class CharacterHealth : MonoBehaviour
     private void Awake()
     {
         Value = _maxValue;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.H))
+            TryGetHeal(_healValue);
     }
 
     public void TryGetDamage(int damageValue)
