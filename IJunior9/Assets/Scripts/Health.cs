@@ -27,19 +27,15 @@ public class Health : MonoBehaviour
     {
         Value -= damageValue;
 
-        if (Value >= _minValue && Value <= _maxValue)
-            ValueChanged?.Invoke(Value);
-        else
-            Value = Mathf.Clamp(Value, _minValue, _maxValue);
+        Value = Mathf.Clamp(Value, _minValue, _maxValue);
+        ValueChanged?.Invoke(Value);
     }
 
     public void Heal(int healValue)
     {
         Value += healValue;
 
-        if (Value >= _minValue && Value <= _maxValue)
-            ValueChanged?.Invoke(Value);
-        else
-            Value = Mathf.Clamp(Value, _minValue, _maxValue);
+        Value = Mathf.Clamp(Value, _minValue, _maxValue);
+        ValueChanged?.Invoke(Value);
     }
 }
