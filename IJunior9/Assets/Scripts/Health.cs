@@ -8,13 +8,13 @@ public class Health : MonoBehaviour
     [Space]
     [SerializeField] private int _healValue;
 
-    public int Value { get; private set; }
+    private int _value;
 
     public event UnityAction<int> ValueChanged;
 
     private void Awake()
     {
-        Value = _maxValue;
+        _value = _maxValue;
     }
 
     private void Update()
@@ -25,17 +25,17 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damageValue)
     {
-        Value -= damageValue;
+        _value -= damageValue;
 
-        Value = Mathf.Clamp(Value, _minValue, _maxValue);
-        ValueChanged?.Invoke(Value);
+        _value = Mathf.Clamp(_value, _minValue, _maxValue);
+        ValueChanged?.Invoke(_value);
     }
 
     public void Heal(int healValue)
     {
-        Value += healValue;
+        _value += healValue;
 
-        Value = Mathf.Clamp(Value, _minValue, _maxValue);
-        ValueChanged?.Invoke(Value);
+        _value = Mathf.Clamp(_value, _minValue, _maxValue);
+        ValueChanged?.Invoke(_value);
     }
 }

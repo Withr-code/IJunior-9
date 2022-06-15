@@ -34,7 +34,7 @@ public class HealthBar : MonoBehaviour
 
     private IEnumerator _smoothValueChange(int newValue)
     {
-        while (_slider.value != _health.Value)
+        while (_slider.value != newValue)
         {
             _slider.value = Mathf.MoveTowards(_slider.value, newValue, _transitionSpeed * Time.deltaTime);
 
