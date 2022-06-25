@@ -5,37 +5,25 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private int _minValue;
     [SerializeField] private int _maxValue;
-    [Space]
-    [SerializeField] private int _healValue;
 
     private int _value;
 
-    public event UnityAction<int> ValueChanged;
+    public event UnityAction<int> Changed;
 
     private void Awake()
     {
         _value = _maxValue;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.H))
-            Heal(_healValue);
-    }
-
     public void TakeDamage(int damageValue)
     {
-        _value -= damageValue;
-
-        _value = Mathf.Clamp(_value, _minValue, _maxValue);
-        ValueChanged?.Invoke(_value);
+        _value = Mathf.Clamp(_value - damageValue, _minValue, _maxValue);
+        Changed?.Invoke(_value);
     }
 
-    public void Heal(int healValue)
+    public void TakeHeal(int healValue)
     {
-        _value += healValue;
-
-        _value = Mathf.Clamp(_value, _minValue, _maxValue);
-        ValueChanged?.Invoke(_value);
+        _value = Mathf.Clamp(_value + healValue, _minValue, _maxValue);
+        Changed?.Invoke(_value);
     }
 }

@@ -10,6 +10,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Health _health;
 
     private Slider _slider;
+    private Coroutine _currentCoroutine = null;
 
     private void Awake()
     {
@@ -18,21 +19,23 @@ public class HealthBar : MonoBehaviour
 
     private void OnEnable()
     {
-        _health.ValueChanged += OnHealthChanged;
+        _health.Changed += OnHealthChanged;
     }
 
     private void OnDisable()
     {
-        _health.ValueChanged -= OnHealthChanged;
-        
+        _health.Changed -= OnHealthChanged;
     }
 
     private void OnHealthChanged(int newValue)
     {
-        StartCoroutine(_smoothValueChange(newValue));
+        if (_currentCoroutine != null)
+            StopCoroutine(_currentCoroutine);
+
+        _currentCoroutine = StartCoroutine(ChangeValue(newValue));
     }
 
-    private IEnumerator _smoothValueChange(int newValue)
+    private IEnumerator ChangeValue(int newValue)
     {
         while (_slider.value != newValue)
         {
@@ -40,7 +43,5 @@ public class HealthBar : MonoBehaviour
 
             yield return null;
         }
-
-        yield break;
     }
 }
